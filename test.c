@@ -18,7 +18,7 @@ int is_valid_input_file(char *filename);
 int main(int argc, char *argv[]) {
     char *input_dir = NULL;
     char *answer_dir = NULL;
-    int time_limit = 1; // 기본값은 1초
+    int time_limit = 10; // 기본값은 1초
 
     int opt;
     while ((opt = getopt(argc, argv, "i:a:t:")) != -1) {
