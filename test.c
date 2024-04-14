@@ -178,7 +178,7 @@ void compile_and_execute(char* filename, char* input_dir, char* answer_dir, char
         close(fd[0]);
 
         if (isEmpty) {
-            fprintf(stderr, "%s: Error Empty input file\n", filename);
+            fprintf(stderr, "%s: runtime error\n", filename);
             total_runtime_error++;
             total_wrong++;
             kill(pid, SIGKILL);
