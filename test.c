@@ -77,12 +77,13 @@ int main(int argc, char* argv[]) {
     }
 
     // 결과 출력
-    // printf("Compile Error: %d\n", total_compile_error);
+    printf("================================\n");
     printf("Timeout: %d\n", total_timeout);
     printf("Runtime Error: %d\n", total_runtime_error);
     printf("Wrong answer : %d\n", compile_error);
     printf("Correct: %d\n", total_correct);
-    printf("Total Error: %d/%d\n", total_wrong, total_correct + total_wrong);
+    printf("Error/Total: %d/%d\n", total_wrong, total_correct + total_wrong);
+    printf("================================\n");
 
     return EXIT_SUCCESS;
 }
@@ -98,8 +99,10 @@ void compile_and_execute(char* filename, char* input_dir, char* answer_dir, char
     char execute_command[MAX_CMD_LEN];
     char output_path[MAX_PATH_LEN];
     char answer_path[MAX_PATH_LEN];
+    char input_path[MAX_PATH_LEN];
     FILE* output_file;
     FILE* answer_file;
+    FILE *input_file;
 
     snprintf(pathname, sizeof(pathname), "%s/%s", input_dir, filename);
     snprintf(compile_command, sizeof(compile_command), "gcc -fsanitize=address %s -o %s.out", target_src, target_src);
@@ -110,7 +113,7 @@ void compile_and_execute(char* filename, char* input_dir, char* answer_dir, char
         total_compile_error++;
         return;
     }
-
+    snprintf(input_path, sizeof(input_path), "%s/%s", input_dir, filename);
     snprintf(output_path, sizeof(output_path), "output%s", filename);
     snprintf(answer_path, sizeof(answer_path), "%s/%s", answer_dir, filename);
 
@@ -208,7 +211,7 @@ void compile_and_execute(char* filename, char* input_dir, char* answer_dir, char
             compile_error++;
             return;
         }
-        else {
+       // else {
             // 파일 실행 종료 시간 기록 및 총 실행 시간에 추가
             gettimeofday(&end, NULL);
             int runtime = ((end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000);
@@ -227,7 +230,7 @@ void compile_and_execute(char* filename, char* input_dir, char* answer_dir, char
             }
         }
     }
-}
+//}
 
 // print_usage 함수 정의
 void print_usage() {
